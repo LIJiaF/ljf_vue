@@ -38,7 +38,7 @@
         <el-input type="textarea" v-model="data.note" label="描述" :rows="2" resize="none"></el-input>
       </el-form-item>
       <el-form-item label="内容">
-        <Editor :content="data.content" @getEditorContent="getEditorContent"></Editor>
+        <Editor ref="editor" :content="data.content" @sendEditorContent="sendEditorContent"></Editor>
       </el-form-item>
       <el-form-item>
         <el-button v-if="!edit" type="primary" @click="handleAdd">添加</el-button>
@@ -107,10 +107,11 @@
             console.log(err);
           })
       },
-      getEditorContent (content) {
+      sendEditorContent (content) {
         this.data.content = content;
       },
       handleAdd () {
+        this.$refs.editor.getEditorContent();
         if (!this.data.class_id) {
           this.$message.error('分类不能为空');
           return false;

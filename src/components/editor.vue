@@ -12,6 +12,7 @@
     data () {
       return {
         editor: null,
+        editorContent: ''
       }
     },
     mounted () {
@@ -39,18 +40,28 @@
       // 忽略粘贴内容中的图片
       editor.customConfig.pasteIgnoreImg = true;
       // onchange 触发的延迟时间
-      editor.customConfig.onchangeTimeout = 500;
+      // editor.customConfig.onchangeTimeout = 500;
       // 限制一次最多上传 5 张图片
       editor.customConfig.uploadImgMaxLength = 5;
+      // 隐藏"网络图片"tab
+      editor.customConfig.showLinkImg = false;
+      // 使用 base64 保存图片
+      editor.customConfig.uploadImgShowBase64 = true;
       // 更改内容
       editor.customConfig.onchange = (html) => {
-        this.$emit('getEditorContent', html);
+        this.editorContent = html;
       };
       editor.create();
       this.editor = editor;
     },
+    methods: {
+      getEditorContent () {
+        this.$emit('sendEditorContent', this.editorContent);
+      }
+    },
     watch: {
       content (content) {
+        this.editorContent = content;
         this.editor.txt.html(content);
       }
     }
