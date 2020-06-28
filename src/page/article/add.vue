@@ -56,7 +56,7 @@
     props: ['article_id'],
     data () {
       return {
-        action: '/api/upload',
+        action: '/api/upload?type=article',
         edit: false,
         article_class: [],
         data: {
