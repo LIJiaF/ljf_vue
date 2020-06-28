@@ -56,7 +56,7 @@
     props: ['article_id'],
     data () {
       return {
-        action: 'http://127.0.0.1:8888/upload',
+        action: '/api/upload',
         edit: false,
         article_class: [],
         data: {
